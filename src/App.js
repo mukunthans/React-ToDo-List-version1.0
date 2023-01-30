@@ -1,50 +1,73 @@
 
 
 import Header from './header';
+import SearchItem from './SearchItem';
 import Content from './Content';
 import Footer from './Footer';
-import React from 'react';
+import AddItem from './AddItems';
 import {useState} from 'react';
 
 function App() {
-      const [items,setItems] = useState([
-      {
-        id:1,
-        checked:false,
-        item:"Coke"
-      },
-      {
-        id:2,
-        checked:false,
-        item:"Pepsi"
 
-      },
-            {
-        id:3,
-        checked:true,
-        item:"Fanta"
 
-      }
-    ]);
+      const [items,setItems] = useState(JSON.parse(localStorage.getItem('shopingList')));
+
+    const [newItem,setNewItem] = useState('');
+    const [search,setSearch] = useState('');
+
+    const setAndSaveItems = (newItems) => {
+        setItems(newItems);
+        localStorage.setItem('shopingList',JSON.stringify(newItems));
+
+
+    }
+
+    const addItem = (item) => {
+      const id = items.length ? items[items.length-1].id + 1 : 1;
+      const myNewItem = {id ,checked:false,item}
+      //console.log(myNewItem);
+      const listItems = [...items, myNewItem];
+      //console.log(listItems);
+
+      setAndSaveItems(listItems);
+      
+
+    }
 
     const handleCheck = (id) => {
         const listItems = items.map((item)=>{
          return  item.id === id ? {...item,checked:!item.checked } : item;
         })
-        setItems(listItems);
-        localStorage.setItem('shopingList',JSON.stringify(listItems));
+        setAndSaveItems(listItems);
+
     }
     const handleDelete = (id) => {
+
+
       const listItems = items.filter((item)=> item.id!==id);
-      setItems(listItems);
-      localStorage.setItem('shopingList',JSON.stringify(listItems));
+     setAndSaveItems(listItems);
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if(!newItem) return;
+      addItem(newItem);
+      setNewItem('');
+      
     }
 
 
   return (
     <div className="App">
-     <Header title="Bucket List"/>
-     <Content items={items} 
+     <Header title="ToDo List"/>
+
+     <AddItem  newItem={newItem}
+              setNewItem={setNewItem}
+              handleSubmit={handleSubmit}/>
+      <SearchItem  search={search}
+                                setSearch = {setSearch} />
+     <Content items={items.filter((item) => ((item.item).toLowerCase().includes(search))
+     )} 
               handleCheck={handleCheck}
               handleDelete={handleDelete}/>
      <Footer length={items.length}  />
@@ -53,3 +76,6 @@ function App() {
 }
 
 export default App;
+
+
+//65 when a form is submitted, the default behavior is to reload the page, to prevent it we use it
