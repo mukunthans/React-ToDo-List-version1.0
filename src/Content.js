@@ -10,7 +10,7 @@ const Content = ({items,handleCheck,handleDelete}) => {
 
 
     return (
-    <main>
+    <>
       {items.length ? (
          <ItemList items={items}
                    handleCheck={handleCheck}
@@ -22,7 +22,7 @@ const Content = ({items,handleCheck,handleDelete}) => {
       )
       }
 
-    </main>
+    </>
     )
 }
 
