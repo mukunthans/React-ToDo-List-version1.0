@@ -8,7 +8,7 @@ const SearchItem = ({search,setSearch}) => {
                 role="searchbox"
                 placeholder='Search Items'
                 value={search}
-                onChange={(e) => {  const val= e.target.value.toLowerCase();     setSearch(val)}}
+                onChange={(e) => {  const val= e.target.value;     setSearch(val)}}
                 >
                 </input>
             

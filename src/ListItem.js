@@ -28,4 +28,4 @@ const ListItem = ({item,handleDelete,handleCheck}) => {
 export default ListItem
 
 //aria-label for screen readers
-//9 checked for displaying default value in o/p
+//10 checked for displaying default value in o/p

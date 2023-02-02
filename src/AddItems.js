@@ -30,4 +30,6 @@ const AddItem = ({newItem,setNewItem,handleSubmit}) => {
 
 export default AddItem
 
-//6 noo need to pass event object it is implict therefore no need to use arrow syntax to pass parameter
+//8 onSubmit() -> noo need to pass event object it is implict therefore no need to use arrow syntax to pass parameter
+
+// useref is used to set focus in input after it is submitted
